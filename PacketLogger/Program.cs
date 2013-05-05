@@ -9,7 +9,8 @@ namespace PacketLogger
 	{
 		public static UdpClient client;
 		public static UdpClient server;
-
+		public static IAsyncResult currentServer;
+		public static IAsyncResult currentClient;
 
 		public static void Main (string[] args)
 		{
@@ -23,8 +24,8 @@ namespace PacketLogger
 
 			Console.WriteLine ("Starting server...");
 
-			client.BeginReceive (new AsyncCallback(clientRecv), null);
-			server.BeginReceive (new AsyncCallback(serverRecv), null);
+			currentClient = client.BeginReceive (new AsyncCallback(clientRecv), null);
+			currentServer = server.BeginReceive (new AsyncCallback(serverRecv), null);
 
 			while(true)
 			{
@@ -39,7 +40,7 @@ namespace PacketLogger
 			IPEndPoint RemoteIPEndPoint = new IPEndPoint(IPAddress.Any, 0);
 			recv = client.EndReceive(result, ref RemoteIPEndPoint);
 			// Immediately begin listening for incoming packets again
-			client.BeginReceive (new AsyncCallback(clientRecv), null);
+			currentClient = client.BeginReceive (new AsyncCallback(clientRecv), null);
 			// Forward onto server
 			Console.Write ("Client @" + RemoteIPEndPoint.Address.ToString() + ":" + RemoteIPEndPoint.Port.ToString() + " ");
 
@@ -49,8 +50,13 @@ namespace PacketLogger
 			}
 			Console.WriteLine (" ");
 
-			server.Send (recv, recv.Length, "127.0.0.1", 5122);
+			server.BeginSend (recv, recv.Length, "127.0.0.1", 5122,  new AsyncCallback(serverSend), server);
+		}
 
+		private static void serverSend(IAsyncResult result)
+		{
+			var socket = (UdpClient)result.AsyncState;
+			socket.EndSend(result);
 		}
 
 		private static void serverRecv(IAsyncResult result)
@@ -69,8 +75,13 @@ namespace PacketLogger
 			}
 			Console.WriteLine (" ");
 
-			client.Send (recv, recv.Length, "127.0.0.1", 5119);
+			client.BeginSend (recv, recv.Length, "127.0.0.1", 5119, new AsyncCallback(clientSend), client);
+		}
 
+		private static void clientSend(IAsyncResult result)
+		{
+			var socket = (UdpClient)result.AsyncState;
+			socket.EndSend(result);
 		}
 	}
 }
