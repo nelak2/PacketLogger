@@ -7,54 +7,69 @@ namespace PacketLogger
 {
 	class MainClass
 	{
+		public static UdpClient client;
+		public static UdpClient server;
+
+
 		public static void Main (string[] args)
 		{
-			// Client to proxy (listen)
-			var clientToProxy = new UdpClient(5121);
-			var clientToProxyEP = new IPEndPoint(IPAddress.Any, 5121);
+			// Client to proxy
+			client = new UdpClient(5121);
 
-			// server to proxy (listen)
-			var serverToProxy = new UdpClient(5119);
-			var serverToProxyEP = new IPEndPoint(IPAddress.Any, 5119);
 
-			// Proxy to server (send)
-			var proxyToServer = new UdpClient(5119);
-			var proxyToServerEP = new IPEndPoint(IPAddress.Parse ("127.0.0.1"), 5119);
-
-			var proxyToClient = new UdpClient(5121);
-			var proxyToClientEP = new IPEndPoint(IPAddress.Parse("192.168.0.198"), 5121);
+			// server to proxy
+			server = new UdpClient(5120);
 
 
 			Console.WriteLine ("Starting server...");
 
-			byte[] clientMessage;
-			string ascii;
+			client.BeginReceive (new AsyncCallback(clientRecv), null);
+			server.BeginReceive (new AsyncCallback(serverRecv), null);
 
-
-			clientToProxy.BeginReceive (
 			while(true)
 			{
-				// receive from client
-				clientMessage = clientToProxy.Receive(ref clientToProxyEP);
-
-				if(clientMessage != null)
-				{
-					Console.WriteLine ("Client to server");
-					ascii = Encoding.ASCII.GetString (clientMessage);
-					
-					foreach(byte b in clientMessage)
-					{
-						Console.Write (b);
-						Console.Write (" ");
-					}
-					Console.WriteLine (" ");
-					Console.WriteLine (ascii);
-				}
-
+				// Infinitely loop
 			}
+		}
+		
+		private static void clientRecv(IAsyncResult result)
+		{
+			byte[] recv;
+			// Receive from client
+			IPEndPoint RemoteIPEndPoint = new IPEndPoint(IPAddress.Any, 0);
+			recv = client.EndReceive(result, ref RemoteIPEndPoint);
+			// Immediately begin listening for incoming packets again
+			client.BeginReceive (new AsyncCallback(clientRecv), null);
+			// Forward onto server
+			Console.Write ("Client @" + RemoteIPEndPoint.Address.ToString() + ":" + RemoteIPEndPoint.Port.ToString() + " ");
 
+			foreach(byte b in recv)
+			{
+				Console.Write(b + " ");
+			}
+			Console.WriteLine (" ");
 
+			server.Send (recv, recv.Length, "127.0.0.1", 5122);
 
+		}
+
+		private static void serverRecv(IAsyncResult result)
+		{
+			byte[] recv;
+			// Receive from client
+			IPEndPoint RemoteIPEndPoint = new IPEndPoint(IPAddress.Any, 0);
+			recv = server.EndReceive (result, ref RemoteIPEndPoint);
+			// Immediately begin listening for incoming packets again
+			server.BeginReceive (new AsyncCallback(clientRecv), null);
+			// Forward onto server
+			Console.Write ("Server @" + RemoteIPEndPoint.Address.ToString() + ":" + RemoteIPEndPoint.Port.ToString() + " ");
+			foreach(byte b in recv)
+			{
+				Console.Write(b + " ");
+			}
+			Console.WriteLine (" ");
+
+			client.Send (recv, recv.Length, "127.0.0.1", 5119);
 
 		}
 	}
