@@ -44,18 +44,19 @@ namespace PacketLogger
 		{
 			while(true)
 			{
-			byte[] data;
-			var srcAdd = new IPEndPoint(IPAddress.Any, 0);
-			data = client.Receive (ref srcAdd);
+				byte[] data;
+				var srcAdd = new IPEndPoint(IPAddress.Any, 0);
+				data = client.Receive (ref srcAdd);
 
-			Console.Write ("Client @" + srcAdd.Address.ToString() + ":" + srcAdd.Port.ToString() + " ");
-			foreach(byte b in data)
-			{
-				Console.Write(b + " ");
-			}
-			Console.WriteLine (" ");
+				Console.Write ("Client @" + srcAdd.Address.ToString() + ":" + srcAdd.Port.ToString() + " ");
+				foreach(byte b in data)
+				{
+					Console.Write(b + " ");
+				}
+				Console.WriteLine (Encoding.ASCII.GetString (data));
+				Console.WriteLine (" ");
 
-			server.Send(data, data.Length, "127.0.0.1", 5122);
+				server.Send(data, data.Length, "127.0.0.1", 5122);
 			}
 		}
 
@@ -63,18 +64,19 @@ namespace PacketLogger
 		{
 			while(true)
 			{
-			byte[] data;
-			var srcAdd = new IPEndPoint(IPAddress.Any, 0);
-			data = server.Receive (ref srcAdd);
-			
-			Console.Write ("Server @" + srcAdd.Address.ToString() + ":" + srcAdd.Port.ToString() + " ");
-			foreach(byte b in data)
-			{
-				Console.Write(b + " ");
-			}
-			Console.WriteLine (" ");
-			
-			client.Send(data, data.Length, "127.0.0.1", 5119);
+				byte[] data;
+				var srcAdd = new IPEndPoint(IPAddress.Any, 0);
+				data = server.Receive (ref srcAdd);
+				
+				Console.Write ("Server @" + srcAdd.Address.ToString() + ":" + srcAdd.Port.ToString() + " ");
+				foreach(byte b in data)
+				{
+					Console.Write(b + " ");
+				}
+				Console.WriteLine (Encoding.ASCII.GetString (data));
+				Console.WriteLine (" ");
+				
+				client.Send(data, data.Length, "127.0.0.1", 5119);
 			}
 		}
 	}
