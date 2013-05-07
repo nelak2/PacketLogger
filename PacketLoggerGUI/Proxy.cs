@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
@@ -51,7 +52,11 @@ namespace PacketLoggerGUI
                     clientDisplay.Items.Add(line);
                 });
                 clientLog.Add(data);
-                
+                clientDisplay.Invoke((MethodInvoker)delegate
+                {
+                    clientDisplay.Update();
+                });
+
                 server.Send(data, data.Length, "127.0.0.1", 5122);
             }
         }

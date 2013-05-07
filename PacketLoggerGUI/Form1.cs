@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
@@ -69,6 +70,11 @@ namespace PacketLoggerGUI
             }
             lblClientPacket.Text = line;
             lblClientASCII.Text = Encoding.ASCII.GetString(data);
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
