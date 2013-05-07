@@ -42,20 +42,16 @@ namespace PacketLoggerGUI
                 var srcAdd = new IPEndPoint(IPAddress.Any, 0);
                 data = client.Receive(ref srcAdd);
 
-                string line = "";
-                foreach (byte b in data)
-                {
-                    line = line + b + " ";
-                }
-                clientDisplay.Invoke((MethodInvoker)delegate
-                {
-                    clientDisplay.Items.Add(line);
-                });
-                clientLog.Add(data);
-                clientDisplay.Invoke((MethodInvoker)delegate
-                {
-                    clientDisplay.Update();
-                });
+                    string line = "";
+                    foreach (byte b in data)
+                    {
+                        line = line + b + " ";
+                    }
+                    clientDisplay.Invoke((MethodInvoker)delegate
+                    {
+                        clientDisplay.Items.Add(line);
+                    });
+                    clientLog.Add(data);
 
                 server.Send(data, data.Length, "127.0.0.1", 5122);
             }
@@ -69,16 +65,17 @@ namespace PacketLoggerGUI
                 var srcAdd = new IPEndPoint(IPAddress.Any, 0);
                 data = server.Receive(ref srcAdd);
 
-                string line = "";
-                foreach (byte b in data)
-                {
-                    line = line + b + " ";
-                }
-                serverDisplay.Invoke((MethodInvoker)delegate
-                {
-                    serverDisplay.Items.Add(line);
-                });
-                serverLog.Add(data);
+
+                    string line = "";
+                    foreach (byte b in data)
+                    {
+                        line = line + b + " ";
+                    }
+                    serverDisplay.Invoke((MethodInvoker)delegate
+                    {
+                        serverDisplay.Items.Add(line);
+                    });
+                    serverLog.Add(data);
 
                 client.Send(data, data.Length, "127.0.0.1", 5119);
             }

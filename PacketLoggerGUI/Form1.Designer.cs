@@ -38,11 +38,15 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.lblClientPacket = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.lblClientASCII = new System.Windows.Forms.Label();
-            this.lblServerPacket = new System.Windows.Forms.Label();
-            this.lblServerASCII = new System.Windows.Forms.Label();
+            this.txtConvert = new System.Windows.Forms.TextBox();
+            this.lblClientPacket = new System.Windows.Forms.TextBox();
+            this.lblClientASCII = new System.Windows.Forms.TextBox();
+            this.lblServerPacket = new System.Windows.Forms.TextBox();
+            this.lblServerASCII = new System.Windows.Forms.TextBox();
+            this.btnConvert = new System.Windows.Forms.Button();
+            this.btnFilter = new System.Windows.Forms.Button();
+            this.txtFilter0 = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // lstbx_Server
@@ -83,7 +87,7 @@
             // 
             // btnStart
             // 
-            this.btnStart.Location = new System.Drawing.Point(13, 377);
+            this.btnStart.Location = new System.Drawing.Point(16, 447);
             this.btnStart.Name = "btnStart";
             this.btnStart.Size = new System.Drawing.Size(75, 23);
             this.btnStart.TabIndex = 4;
@@ -93,7 +97,7 @@
             // 
             // btn_Stop
             // 
-            this.btn_Stop.Location = new System.Drawing.Point(94, 377);
+            this.btn_Stop.Location = new System.Drawing.Point(97, 447);
             this.btn_Stop.Name = "btn_Stop";
             this.btn_Stop.Size = new System.Drawing.Size(75, 23);
             this.btn_Stop.TabIndex = 5;
@@ -104,7 +108,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(13, 330);
+            this.label3.Location = new System.Drawing.Point(13, 360);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(75, 13);
             this.label3.TabIndex = 6;
@@ -113,7 +117,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(13, 299);
+            this.label5.Location = new System.Drawing.Point(13, 319);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(34, 13);
             this.label5.TabIndex = 8;
@@ -131,19 +135,11 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(13, 351);
+            this.label7.Location = new System.Drawing.Point(12, 402);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(34, 13);
             this.label7.TabIndex = 11;
             this.label7.Text = "ASCII";
-            // 
-            // lblClientPacket
-            // 
-            this.lblClientPacket.AutoSize = true;
-            this.lblClientPacket.Location = new System.Drawing.Point(94, 276);
-            this.lblClientPacket.Name = "lblClientPacket";
-            this.lblClientPacket.Size = new System.Drawing.Size(0, 13);
-            this.lblClientPacket.TabIndex = 12;
             // 
             // label9
             // 
@@ -153,43 +149,90 @@
             this.label9.Size = new System.Drawing.Size(0, 13);
             this.label9.TabIndex = 13;
             // 
+            // txtConvert
+            // 
+            this.txtConvert.Location = new System.Drawing.Point(400, 447);
+            this.txtConvert.Name = "txtConvert";
+            this.txtConvert.Size = new System.Drawing.Size(315, 20);
+            this.txtConvert.TabIndex = 18;
+            // 
+            // lblClientPacket
+            // 
+            this.lblClientPacket.Location = new System.Drawing.Point(97, 273);
+            this.lblClientPacket.Multiline = true;
+            this.lblClientPacket.Name = "lblClientPacket";
+            this.lblClientPacket.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.lblClientPacket.Size = new System.Drawing.Size(648, 37);
+            this.lblClientPacket.TabIndex = 19;
+            // 
             // lblClientASCII
             // 
-            this.lblClientASCII.AutoSize = true;
-            this.lblClientASCII.Location = new System.Drawing.Point(94, 299);
+            this.lblClientASCII.Location = new System.Drawing.Point(97, 316);
+            this.lblClientASCII.Multiline = true;
             this.lblClientASCII.Name = "lblClientASCII";
-            this.lblClientASCII.Size = new System.Drawing.Size(41, 13);
-            this.lblClientASCII.TabIndex = 14;
-            this.lblClientASCII.Text = "label10";
+            this.lblClientASCII.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.lblClientASCII.Size = new System.Drawing.Size(648, 37);
+            this.lblClientASCII.TabIndex = 20;
             // 
             // lblServerPacket
             // 
-            this.lblServerPacket.AutoSize = true;
-            this.lblServerPacket.Location = new System.Drawing.Point(95, 330);
+            this.lblServerPacket.Location = new System.Drawing.Point(97, 357);
+            this.lblServerPacket.Multiline = true;
             this.lblServerPacket.Name = "lblServerPacket";
-            this.lblServerPacket.Size = new System.Drawing.Size(41, 13);
-            this.lblServerPacket.TabIndex = 16;
-            this.lblServerPacket.Text = "label10";
+            this.lblServerPacket.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.lblServerPacket.Size = new System.Drawing.Size(648, 37);
+            this.lblServerPacket.TabIndex = 21;
             // 
             // lblServerASCII
             // 
-            this.lblServerASCII.AutoSize = true;
-            this.lblServerASCII.Location = new System.Drawing.Point(95, 351);
+            this.lblServerASCII.Location = new System.Drawing.Point(97, 399);
+            this.lblServerASCII.Multiline = true;
             this.lblServerASCII.Name = "lblServerASCII";
-            this.lblServerASCII.Size = new System.Drawing.Size(41, 13);
-            this.lblServerASCII.TabIndex = 17;
-            this.lblServerASCII.Text = "label10";
+            this.lblServerASCII.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.lblServerASCII.Size = new System.Drawing.Size(648, 37);
+            this.lblServerASCII.TabIndex = 22;
+            // 
+            // btnConvert
+            // 
+            this.btnConvert.Location = new System.Drawing.Point(400, 478);
+            this.btnConvert.Name = "btnConvert";
+            this.btnConvert.Size = new System.Drawing.Size(75, 23);
+            this.btnConvert.TabIndex = 23;
+            this.btnConvert.Text = "Convert";
+            this.btnConvert.UseVisualStyleBackColor = true;
+            this.btnConvert.Click += new System.EventHandler(this.btnConvert_Click);
+            // 
+            // btnFilter
+            // 
+            this.btnFilter.Location = new System.Drawing.Point(305, 478);
+            this.btnFilter.Name = "btnFilter";
+            this.btnFilter.Size = new System.Drawing.Size(75, 23);
+            this.btnFilter.TabIndex = 24;
+            this.btnFilter.Text = "Filter";
+            this.btnFilter.UseVisualStyleBackColor = true;
+            this.btnFilter.Click += new System.EventHandler(this.btnFilter_Click);
+            // 
+            // txtFilter0
+            // 
+            this.txtFilter0.Location = new System.Drawing.Point(16, 480);
+            this.txtFilter0.Name = "txtFilter0";
+            this.txtFilter0.Size = new System.Drawing.Size(283, 20);
+            this.txtFilter0.TabIndex = 25;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(771, 454);
+            this.ClientSize = new System.Drawing.Size(771, 512);
+            this.Controls.Add(this.txtFilter0);
+            this.Controls.Add(this.btnFilter);
+            this.Controls.Add(this.btnConvert);
             this.Controls.Add(this.lblServerASCII);
             this.Controls.Add(this.lblServerPacket);
             this.Controls.Add(this.lblClientASCII);
-            this.Controls.Add(this.label9);
             this.Controls.Add(this.lblClientPacket);
+            this.Controls.Add(this.txtConvert);
+            this.Controls.Add(this.label9);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
@@ -220,11 +263,15 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label lblClientPacket;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label lblClientASCII;
-        private System.Windows.Forms.Label lblServerPacket;
-        private System.Windows.Forms.Label lblServerASCII;
+        private System.Windows.Forms.TextBox txtConvert;
+        private System.Windows.Forms.TextBox lblClientPacket;
+        private System.Windows.Forms.TextBox lblClientASCII;
+        private System.Windows.Forms.TextBox lblServerPacket;
+        private System.Windows.Forms.TextBox lblServerASCII;
+        private System.Windows.Forms.Button btnConvert;
+        private System.Windows.Forms.Button btnFilter;
+        private System.Windows.Forms.TextBox txtFilter0;
     }
 }
 

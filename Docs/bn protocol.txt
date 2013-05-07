@@ -50,4 +50,3 @@ BNLR
 
 How does it decipher server version? I suspect that the 2 20, and the 255 19 might be version identifiers
 Server version is reported as a .8109, potentially a floating point value when sent over network hence 2 20 instead of 81 09
-

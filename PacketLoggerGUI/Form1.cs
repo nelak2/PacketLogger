@@ -70,10 +70,112 @@ namespace PacketLoggerGUI
             }
             lblClientPacket.Text = line;
             lblClientASCII.Text = Encoding.ASCII.GetString(data);
+
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
+
+        }
+
+        private void btnConvert_Click(object sender, EventArgs e)
+        {
+            string convert = txtConvert.Text;
+            
+
+            char[] split = new char[1];
+            split[0] = ' ';
+            string[] temp = convert.Split(split);
+            byte[] data = new byte[temp.Length];
+            for (int i = 0; i < temp.Length; i++)
+            {
+                data[i] = Convert.ToByte(temp[i].Trim());
+            }
+
+            txtConvert.Text = Encoding.ASCII.GetString(data);
+
+        }
+
+        private void btnFilter_Click(object sender, EventArgs e)
+        {
+            List<byte[]> clientfilteredlist = new List<byte[]>();
+            List<byte[]> serverfilteredlist = new List<byte[]>();
+
+            string convert = txtFilter0.Text;
+            char[] split = new char[1];
+            split[0] = ' ';
+            string[] temp = convert.Split(split);
+            byte[] data = new byte[temp.Length];
+            for (int i = 0; i < temp.Length; i++)
+            {
+                data[i] = Convert.ToByte(temp[i]);
+            }
+
+            bool match = false;
+            foreach (byte[] b in clientLog)
+            {
+                match = false;
+                for (int i = 0; i < data.Length; i++)
+                {
+                    if (data[i] == b[i])
+                    {
+                        match = true;
+                    }
+                    else
+                    {
+                        match = false;
+                        break;
+                    }
+                }
+                if (match == true)
+                {
+                    clientfilteredlist.Add(b);
+                }
+            }
+
+            foreach (byte[] b in serverLog)
+            {
+                match = false;
+                for (int i = 0; i < data.Length; i++)
+                {
+                    if (data[i] == b[i])
+                    {
+                        match = true;
+                    }
+                    else
+                    {
+                        match = false;
+                        break;
+                    }
+                }
+                if (match == true)
+                {
+                    serverfilteredlist.Add(b);
+                }
+            }
+
+            lstbx_Server.Items.Clear();
+            lstbx_Client.Items.Clear();
+
+            foreach (byte[] b in serverfilteredlist)
+            {
+                string line = "";
+                foreach (byte c in b)
+                {
+                    line = line + c + " ";
+                }
+                lstbx_Server.Items.Add(line);
+            }
+
+            foreach (byte[] b in clientfilteredlist)
+            {
+                string line = "";
+                foreach (byte c in b)
+                {
+                    line = line + c + " ";
+                }
+                lstbx_Client.Items.Add(line);
+            }
 
         }
     }
