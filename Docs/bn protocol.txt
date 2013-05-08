@@ -77,12 +77,37 @@ X bytes // player name
 1 byte 	// CD key hash length
 Y bytes // CD key hash
 
+SendBNCSMessage(ulong, uchar, int, int, String, String, ulong &
+HandleBNCS(ulong, uchar *, ulong)
+
 BNCR
 66 78 	// 2 byte protocol type
 67 82 	// 2 byte message type
 2 20  	// 2 byte server port
+
 86 32 22 63 160 216 225 167 103 91 188 188 33 87 136 57 35 78 129 146 83 106 135 210 219 161 91 1 69 111 85 105 62 50 32 246 127 53 197 4 111 57 181 31 6 177 137 40 248 238 167 65 153 167 74 129 74 127 192 71 223 237 48 197 180 143 238
+
+>> 0000:                   56 20 cc 32 23 39 d9 be b8 8d  BNCR..V..2#9....
+>> 0010: 32 c3 ab ac 99 8a 0b 8f b5 29 36 dd de b6 93 73  2........)6....s
+>> 0020: 45 96 aa 2e 41 0e 0a 25 20 f6 21 de 21 bf cb de  E...A..%..!.!...
+>> 0030: f8 83 05 c1 7a 53 c9 d3 56 d9 a5 f7 83 6d 67 bc  ....zS..V....mg.
+>> 0040: f4 1c 09 99 e3 01 a8 0c 64                       ........d
+
+>> 0000:                   56 20 a4 82 d5 8b e5 1c 70 25  BNCR..V.......p%
+>> 0010: 7d bc 8a 50 53 28 1d 40 53 7d d6 92 f2 d6 c3 bc  }..PS(.@S}......
+>> 0020: 63 af 87 c4 50 76 02 f6 20 84 6e fc 5b 85 3a 6e  c...Pv....n.[.:n
+>> 0030: 66 e1 d1 16 6b fc 77 44 14 4b 0b 1f 10 7c 29 b2  f...k.wD.K...|).
+>> 0040: 31 12 77 df fa fc a1 29 d4                       1.w....).
+
+SendBNCR(ulong, uchar, ulong)
+HandleBNCR(ulong, uchar *, ulong)
 
 BNVR
 
+SendBNVR(ulong, uchar)
+HandleBNVR(ulong, uchar *, ulong)
+
 BNVS
+
+SendBNVS(CExoArraylist<CExoString> const *, CExoString const &, CExoString const &)
+HandleBNVS(ulong, uchar *, ulong)
