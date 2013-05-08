@@ -44,6 +44,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BNERMessage.cs" />
+    <Compile Include="BNESMessage.cs" />
+    <Compile Include="BNLMMessage.cs" />
+    <Compile Include="BNLRMessage.cs" />
+    <Compile Include="BNXIMessage.cs" />
+    <Compile Include="BNXRMessage.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>

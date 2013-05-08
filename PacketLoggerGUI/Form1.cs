@@ -42,7 +42,7 @@ namespace PacketLoggerGUI
         {
             client.Abort();
             server.Abort();
-        }
+        } 
 
         private void lstbx_Server_SelectedIndexChanged(object sender, EventArgs e)
         {
