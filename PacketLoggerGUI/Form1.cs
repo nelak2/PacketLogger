@@ -48,13 +48,8 @@ namespace PacketLoggerGUI
         {
             int index = lstbx_Server.SelectedIndex;
             byte[] data = serverLog[index];
-            string line = "";
 
-            foreach (byte b in data)
-            {
-                line = line + " " + b;
-            }
-            lblServerPacket.Text = line;
+            lblServerPacket.Text = BitConverter.ToString(data);
             lblServerASCII.Text = Encoding.ASCII.GetString(data);
         }
 
@@ -62,13 +57,8 @@ namespace PacketLoggerGUI
         {
             int index = lstbx_Client.SelectedIndex;
             byte[] data = clientLog[index];
-            string line = "";
 
-            foreach (byte b in data)
-            {
-                line = line + " " + b;
-            }
-            lblClientPacket.Text = line;
+            lblClientPacket.Text = BitConverter.ToString(data);
             lblClientASCII.Text = Encoding.ASCII.GetString(data);
 
         }
@@ -84,7 +74,7 @@ namespace PacketLoggerGUI
             
 
             char[] split = new char[1];
-            split[0] = ' ';
+            split[0] = '-';
             string[] temp = convert.Split(split);
             byte[] data = new byte[temp.Length];
             for (int i = 0; i < temp.Length; i++)
@@ -103,7 +93,7 @@ namespace PacketLoggerGUI
 
             string convert = txtFilter0.Text;
             char[] split = new char[1];
-            split[0] = ' ';
+            split[0] = '-';
             string[] temp = convert.Split(split);
             byte[] data = new byte[temp.Length];
             for (int i = 0; i < temp.Length; i++)
@@ -159,24 +149,15 @@ namespace PacketLoggerGUI
 
             foreach (byte[] b in serverfilteredlist)
             {
-                string line = "";
-                foreach (byte c in b)
-                {
-                    line = line + c + " ";
-                }
-                lstbx_Server.Items.Add(line);
+                lstbx_Server.Items.Add(BitConverter.ToString(b));
             }
 
             foreach (byte[] b in clientfilteredlist)
             {
-                string line = "";
-                foreach (byte c in b)
-                {
-                    line = line + c + " ";
-                }
-                lstbx_Client.Items.Add(line);
+                lstbx_Client.Items.Add(BitConverter.ToString(b));
             }
-
+            clientLog = clientfilteredlist;
+            serverLog = serverfilteredlist;
         }
     }
 }

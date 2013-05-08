@@ -42,14 +42,9 @@ namespace PacketLoggerGUI
                 var srcAdd = new IPEndPoint(IPAddress.Any, 0);
                 data = client.Receive(ref srcAdd);
 
-                    string line = "";
-                    foreach (byte b in data)
-                    {
-                        line = line + b + " ";
-                    }
                     clientDisplay.Invoke((MethodInvoker)delegate
                     {
-                        clientDisplay.Items.Add(line);
+                        clientDisplay.Items.Add(BitConverter.ToString(data));
                     });
                     clientLog.Add(data);
 
@@ -65,15 +60,9 @@ namespace PacketLoggerGUI
                 var srcAdd = new IPEndPoint(IPAddress.Any, 0);
                 data = server.Receive(ref srcAdd);
 
-
-                    string line = "";
-                    foreach (byte b in data)
-                    {
-                        line = line + b + " ";
-                    }
                     serverDisplay.Invoke((MethodInvoker)delegate
                     {
-                        serverDisplay.Items.Add(line);
+                        serverDisplay.Items.Add(BitConverter.ToString(data));
                     });
                     serverLog.Add(data);
 

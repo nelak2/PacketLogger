@@ -1,52 +1,88 @@
 BNES
-66 78 // 2 bytes protocol type
-69 83 // 2 bytes message type
-255 // 1 byte unknown but appears to be ? in query messages
-19 // 1 byte unknown
-0 // 1 byte comes back in BNER
+66 78 	// 2 bytes protocol type
+69 83 	// 2 bytes message type
+255 19	// 2 byte client port (not used)
+0 	// 1 byte unknown
+0 	// 1 byte comes back in BNER
 
 BNER
-66 78 // 2 bytes protocol type
-69 82// 2 bytes message type
-85 // 1 byte unknown
-2 20// 2 bytes unknown
-0 // 1 byte = last byte of BNER
-8 // 1 byte string length
+66 78 	// 2 bytes protocol type
+69 82	// 2 bytes message type
+85 	// 1 byte unknown
+2 20	// 2 bytes server port (not used)
+0 	// 1 byte = last byte of BNER
+8 	// 1 byte string length
 Server12 // X bytes server name (X = previous byte)
 
 BNXI
-66 78 // 2 bytes protocol type
-88 73 // 2 bytes message type
-255 // 1 byte unknown but is ascii ? and messages seem to be query
-19 // 1 bytes unknown
+66 78 	// 2 bytes protocol type
+88 73 	// 2 bytes message type
+255 19 	// 2 bytes client port
 
 BNXR
-66 78 // 2 bytes protocol type
-88 82 // 2 bytes message type
-2 20 // 2 bytes unknown but see BNER. Curiously no preceding 85
-253 0 // 2 bytes unknown
-1 40 // 2 bytes. Levels 1 to 40?
-0 6 // 2 bytes. 0 players/6 max players
+66 78 	// 2 bytes protocol type
+88 82 	// 2 bytes message type
+2 20 	// 2 bytes server port
+253 0 	// 2 bytes unknown
+1 40 	// 2 bytes. Levels 1 to 40?
+0 6 	// 2 bytes. 0 players/6 max players
 1 1 0 1 1 0 0 // 7 bytes. Check box server options. local characters allowed, enforce legal characters, item level restriction, only one party, player pause enable, reload when empty, post game to internet
-8 // 1 byte string length
+8 	// 1 byte string length
 Chapter1 // X bytes module name
 
 Where is Difficulty, AutoSave Interval (minutes), Game Type, PvP Setting, Password required?
 
 BNLM
-66 78 // 2 bytes protocol type
-76 77 // 2 bytes message type
-255 // 1 byte unknown but is ascii ? and messages seem to be query
-19 // 1 byte unknown
-3 // Starts at 3 and packets keep sending until it == 1
-0 0 0 // 3 bytes unknown
+66 78 	// 2 bytes protocol type
+76 77 	// 2 bytes message type
+255 19	// 2 bytes client port
+3 	// Starts at 3 and packets keep sending until it == 1
+0 0 0 	// 3 bytes buffer
 
 BNLR
-66 78 // 2 bytes protocol type
-76 82 // 2 bytes message type
-2 20 // 2 bytes unknown but see BNER. Curiously no preceding 85
-3 // Starts at 3 and packets keep sending until it == 1
-0 0 0 // 3 bytes unknown
+66 78 	// 2 bytes protocol type
+76 82 	// 2 bytes message type
+2 20 	// 2 bytes server port
+3 	// Starts at 3 and packets keep sending until it == 1
+0 0 0 	// 3 bytes buffer
 
-How does it decipher server version? I suspect that the 2 20, and the 255 19 might be version identifiers
-Server version is reported as a .8109, potentially a floating point value when sent over network hence 2 20 instead of 81 09
+BNDS
+2 bytes // protocol type
+2 bytes // message type
+2 bytes // client port
+
+BNDR
+2 bytes // protocol type
+2 bytes // message type
+2 bytes // server port
+1 byte  // string length - server description
+3 bytes // 00's buffer
+X bytes // server description string
+1 byte  // string length - module description
+3 bytes // 00's buffer
+Y bytes // module description
+1 byte  // string length - server version (generally 4 as version numbers no longer change)
+3 bytes // 00's buffer
+Z bytes // server version string
+2 bytes // 00's buffer
+(note regarding all 3 strings: having no description still causes 4 bytes written as 00's. 00 string length, 00 00 00 buffer)
+
+BNCS
+66 78 	// 2 byte protocol type
+67 83 	// 2 byte message type
+255 19	// 2 byte client port
+16 173 31 0 0 3 0 0 34 208 200 5 // 12 bytes unknown
+1 byte 	// player name length
+X bytes // player name
+1 byte 	// CD key hash length
+Y bytes // CD key hash
+
+BNCR
+66 78 	// 2 byte protocol type
+67 82 	// 2 byte message type
+2 20  	// 2 byte server port
+86 32 22 63 160 216 225 167 103 91 188 188 33 87 136 57 35 78 129 146 83 106 135 210 219 161 91 1 69 111 85 105 62 50 32 246 127 53 197 4 111 57 181 31 6 177 137 40 248 238 167 65 153 167 74 129 74 127 192 71 223 237 48 197 180 143 238
+
+BNVR
+
+BNVS
