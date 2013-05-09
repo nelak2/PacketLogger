@@ -85,8 +85,6 @@ BNCR
 67 82 	// 2 byte message type
 2 20  	// 2 byte server port
 
-86 32 22 63 160 216 225 167 103 91 188 188 33 87 136 57 35 78 129 146 83 106 135 210 219 161 91 1 69 111 85 105 62 50 32 246 127 53 197 4 111 57 181 31 6 177 137 40 248 238 167 65 153 167 74 129 74 127 192 71 223 237 48 197 180 143 238
-
 >> 0000:                   56 20 cc 32 23 39 d9 be b8 8d  BNCR..V..2#9....
 >> 0010: 32 c3 ab ac 99 8a 0b 8f b5 29 36 dd de b6 93 73  2........)6....s
 >> 0020: 45 96 aa 2e 41 0e 0a 25 20 f6 21 de 21 bf cb de  E...A..%..!.!...
@@ -102,12 +100,30 @@ BNCR
 SendBNCR(ulong, uchar, ulong)
 HandleBNCR(ulong, uchar *, ulong)
 
-BNVR
-
-SendBNVR(ulong, uchar)
-HandleBNVR(ulong, uchar *, ulong)
-
 BNVS
+3 CD Key 8 hashes + 3 MD5 hashes
+
+2 bytes protocol
+2 bytes message type
+2 bytes unknown (doesn't seem to be port like in all previous)
+1 byte ASCII ( Acts as delimiter (hex 28)
+8 bytes CD Key Hash 1
+32 bytes MD5 Hash
+1 byte ASCII ( delimiter (hex 28)
+8 bytes CD Key Hash 2
+32 bytes MD5 Hash
+1 byte ASCII ( delimiter (hex 28)
+8 bytes CD Key Hash 3
+32 bytes MD5 Hash
+1 byte ASCII . delimiter (hex 20)
+32 byte MD5 Hash
 
 SendBNVS(CExoArraylist<CExoString> const *, CExoString const &, CExoString const &)
 HandleBNVS(ulong, uchar *, ulong)
+
+
+BNVR
+2 bytes protocol type
+2 bytes message type
+41 57 1b 5c 0b  // 5 bytes unknown
+
