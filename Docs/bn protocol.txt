@@ -27,7 +27,7 @@ BNXR
 1 40 	// 2 bytes. Levels 1 to 40?
 0 6 	// 2 bytes. 0 players/6 max players
 1 	// allow local characters
-1 	// pvp mode (0 = None, 1 = Party, 2 = Full)
+1 	// pvp mode (0 = None, 1 = Party, 2 = Full, 3 = default)
 0 	// player pause enabled
 1 	// only one party
 1 	// enforce legal characters
