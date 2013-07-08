@@ -1,11 +1,11 @@
-BNES
+BNES // Echo send
 66 78 	// 2 bytes protocol type
 69 83 	// 2 bytes message type
 255 19	// 2 byte client port (not used)
 0 	// 1 byte unknown
 0 	// 1 byte comes back in BNER
 
-BNER
+BNER // Echo reply
 66 78 	// 2 bytes protocol type
 69 82	// 2 bytes message type
 85 	// 1 byte unknown
@@ -14,12 +14,12 @@ BNER
 8 	// 1 byte string length
 Server12 // X bytes server name (X = previous byte)
 
-BNXI
+BNXI // Extra info request
 66 78 	// 2 bytes protocol type
 88 73 	// 2 bytes message type
 255 19 	// 2 bytes client port
 
-BNXR
+BNXR // Extra info reply
 66 78 	// 2 bytes protocol type
 88 82 	// 2 bytes message type
 2 20 	// 2 bytes server port
@@ -38,26 +38,26 @@ Chapter1 // X bytes module name
 
 Where is Difficulty, AutoSave Interval (minutes), Game Type, PvP Setting, Password required?
 
-BNLM
+BNLM // Link alive?
 66 78 	// 2 bytes protocol type
 76 77 	// 2 bytes message type
 255 19	// 2 bytes client port
 3 	// Starts at 3 and packets keep sending until it == 1
 0 0 0 	// 3 bytes buffer
 
-BNLR
+BNLR // Link reply
 66 78 	// 2 bytes protocol type
 76 82 	// 2 bytes message type
 2 20 	// 2 bytes server port
 3 	// Starts at 3 and packets keep sending until it == 1
 0 0 0 	// 3 bytes buffer
 
-BNDS
+BNDS // Description send
 2 bytes // protocol type
 2 bytes // message type
 2 bytes // client port
 
-BNDR
+BNDR // Description reply
 2 bytes // protocol type
 2 bytes // message type
 2 bytes // server port
@@ -73,7 +73,7 @@ Z bytes // server version string
 2 bytes // 00's buffer
 (note regarding all 3 strings: having no description still causes 4 bytes written as 00's. 00 string length, 00 00 00 buffer)
 
-BNCS
+BNCS // Connect send
 66 78 	// 2 byte protocol type
 67 83 	// 2 byte message type
 255 19	// 2 byte client port
@@ -86,7 +86,7 @@ Y bytes // CD key hash
 SendBNCSMessage(ulong, uchar, int, int, String, String, ulong &
 HandleBNCS(ulong, uchar *, ulong)
 
-BNCR
+BNCR // Connect reply
 66 78 	// 2 byte protocol type
 67 82 	// 2 byte message type
 2 20  	// 2 byte server port
