@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using System.Text.ASCIIEncoding;
-using System.Text.Encoding;
 
 namespace PacketSender
 {
