@@ -1,7 +1,5 @@
 M Protocol
-Appears to have a 4 byte header like BN protocol
 
 4d // 1 byte "M"
 2 bytes // message type?
-1 byte buffer 00
-1 byte packet sequence count (incremented when a packet exceeds 960bytes of data. Successive packets in that same message have incremental values here)
+2 byte packet sequence count (incremented when a packet exceeds 960bytes of data. Successive packets in that same message have incremental values here)
