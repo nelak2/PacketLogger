@@ -90,19 +90,32 @@ BNCR // Connect reply
 66 78 	// 2 byte protocol type
 67 82 	// 2 byte message type
 2 20  	// 2 byte server port
+56 20   // 2 bytes version number? Doesn't seem to change
+X bytes // Rest of the packet seems to change quite a bit with no discernable pattern
 
+// Packet capture on tablet
 >> 0000:                   56 20 cc 32 23 39 d9 be b8 8d  BNCR..V..2#9....
 >> 0010: 32 c3 ab ac 99 8a 0b 8f b5 29 36 dd de b6 93 73  2........)6....s
 >> 0020: 45 96 aa 2e 41 0e 0a 25 20 f6 21 de 21 bf cb de  E...A..%..!.!...
 >> 0030: f8 83 05 c1 7a 53 c9 d3 56 d9 a5 f7 83 6d 67 bc  ....zS..V....mg.
 >> 0040: f4 1c 09 99 e3 01 a8 0c 64                       ........d
 
+// Second packet capture on tablet
 >> 0000:                   56 20 a4 82 d5 8b e5 1c 70 25  BNCR..V.......p%
 >> 0010: 7d bc 8a 50 53 28 1d 40 53 7d d6 92 f2 d6 c3 bc  }..PS(.@S}......
 >> 0020: 63 af 87 c4 50 76 02 f6 20 84 6e fc 5b 85 3a 6e  c...Pv....n.[.:n
 >> 0030: 66 e1 d1 16 6b fc 77 44 14 4b 0b 1f 10 7c 29 b2  f...k.wD.K...|).
 >> 0040: 31 12 77 df fa fc a1 29 d4                       1.w....).
 
+
+// Desktop to Localhost
+>> 0000: 42 4e 43 52 01 14 56 20 28 9f 3e ed fc d1 62 74  BNCR..V.(.>...bt
+>> 0010: ac ae ce a6 86 3d 12 04 5b d0 e3 0f 89 c9 1b 80  .....=..[.......
+>> 0020: 75 19 68 76 16 15 6a 8f 20 70 83 88 54 03 87 fe  u.hv..j..p..T...
+>> 0030: 4a 3c 39 85 0e a2 95 62 a5 3b 29 12 d6 84 54 90  J<9....b.;)...T.
+>> 0040: 63 04 28 59 15 5a 7d 09 c0                       c.(Y.Z}..
+
+// Function in dissasembly
 SendBNCR(ulong, uchar, ulong)
 HandleBNCR(ulong, uchar *, ulong)
 
@@ -111,7 +124,7 @@ BNVS
 
 2 bytes protocol
 2 bytes message type
-2 bytes unknown (doesn't seem to be port like in all previous)
+56 03  //2 bytes unknown (doesn't seem to be port like in all previous)
 1 byte ASCII ( Acts as delimiter (hex 28)
 8 bytes CD Key Hash 1
 32 bytes MD5 Hash
@@ -124,12 +137,8 @@ BNVS
 1 byte ASCII . delimiter (hex 20)
 32 byte MD5 Hash
 
-SendBNVS(CExoArraylist<CExoString> const *, CExoString const &, CExoString const &)
-HandleBNVS(ulong, uchar *, ulong)
-
-
 BNVR
 2 bytes protocol type
 2 bytes message type
-41 57 1b 5c 0b  // 5 bytes unknown
-
+41 57 1b 5c 0b  // 5 bytes unknown (from laptop)
+41 f2 7f f4 0e // Alternate capture from desktop
